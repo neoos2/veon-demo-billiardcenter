@@ -1,0 +1,113 @@
+/* Hallmark · shape: price ledger under the cloth (cloth plane hero, game tiles, proportional price scale, material strata, steps, slate B2B band, service list, cloth contacts) · genre: editorial · theme: custom · job: buy · idea: "Ціна — під сукном: стіл показано як шари під зеленим сукном (ардезія, борт, дерево), і кожен шар підписано фактом і ціною" · vibe: "furniture price list, cloth, slate, brass, carved wood"
+ * paper: #FFFFFF with chalk #EDEFEC, cloth #165933 planes · surface: absolute · accent: brass #D4A64A · display: EB Garamond · body: Golos Text · hero: custom (cloth plane, H1 on 10 columns, catalogue price in brass with a ruled line, call button, client photo crossing the bottom edge of the cloth) · nav: sticky cloth bar, logo, 6 anchors, phone, UKR/RUS · footer: dark cloth band, logo, future-page list, phones, e-mail, address, language, copyright · imagery: client photos · signature: proportional 0–260 000 UAH price scale where every model shows what is under its cloth
+ * axes: white-chalk/EB Garamond/brass · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: imagery, client photos are 800 px with a watermark, so they are used as detail crops above the watermark and never stretched past 2x */
+/* Hallmark · waive 7b · tokens.css --color-bg and --color-on-dark are #FFFFFF · design/concept.md §5 «Look — фон/текст» sets a white reading sheet and white text on cloth; the approved concept outranks the Reflex gate (docs/process/hallmark.md priority 2) */
+/* Hallmark · waive 59 · the 24px gap is hero to #stoly where the client photo crosses the cloth edge by 88px · design/concept.md §5 «Первый экран»: the table stands on the edge of the cloth, the real gap between blocks is 112px */
+/* Hallmark · waive 11 · .tile:hover .tile__media img scale(1.03), hover devices only, off under reduced motion · design/concept.md «Движение» effect 4 asks for this photo scale; the approved concept outranks the gate */
+/* Hallmark · waive 44c · at 1440x900 the cloth plane ends at 733px and the photo crosses into the white sheet · design/concept.md §5 «Первый экран»: the table stands on the edge of the cloth, so the edge is shown inside the first screen on purpose */
+/* Client design tokens: from design/concept.md (veon-concept colors, fonts; «Дизайн-система для FULL»). */
+
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 800;
+  src: url("../assets/fonts/eb-garamond-cyrillic-wght-normal.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 800;
+  src: url("../assets/fonts/eb-garamond-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Golos Text";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 900;
+  src: url("../assets/fonts/golos-text-cyrillic-wght-normal.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Golos Text";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 900;
+  src: url("../assets/fonts/golos-text-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* Colour roles */
+  --color-bg: #FFFFFF;            /* білий лист */
+  --color-chalk: #EDEFEC;         /* поверхня «крейда» */
+  --color-line: #C9CEC9;          /* лінія-декор */
+  --color-text: #1C2224;          /* чорнило */
+  --color-text-2: #545C5F;        /* вторинний текст */
+  --color-cloth: #165933;         /* сукно, primary */
+  --color-cloth-deep: #0E3820;    /* сукно темне, футер */
+  --color-slate: #262C2E;         /* ардезія */
+  --color-wood: #5C3A21;          /* дерево */
+  --color-on-dark: #FFFFFF;
+  --color-on-cloth-2: #B9C7BE;    /* вторинний на сукні */
+  --color-on-slate-2: #A9B3B0;    /* вторинний на сланці */
+  --color-accent: #D4A64A;        /* латунь: тільки головна кнопка */
+  --color-accent-hover: #C29438;  /* латунь, hover */
+  --color-accent-light: #E2BD6B;  /* латунь світла: ціни й посилання на темному */
+  --color-accent-edge: #8C6418;   /* латунь темна: межа кнопки на світлому */
+  --color-on-accent: #1C2224;
+  --color-accent-ink: #1C2224;    /* текст на латуні */
+  --color-focus: #1C2224;
+  --color-focus-on-dark: #FFFFFF;
+  --color-shadow: rgb(14 56 32 / 0.22); /* тільки мобільне меню */
+
+  /* Type */
+  --font-display: "EB Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Scale 1.25: 1440 — 81/52/33/21/17/14; 390 — 44/34/26/19/16/14 */
+  --fs-1: clamp(2.75rem, 1.891rem + 3.524vw, 5.0625rem);
+  --fs-2: clamp(2.125rem, 1.707rem + 1.714vw, 3.25rem);
+  --fs-3: clamp(1.625rem, 1.4625rem + 0.667vw, 2.0625rem);
+  --fs-4: clamp(1.1875rem, 1.141rem + 0.19vw, 1.3125rem);
+  --fs-5: clamp(1rem, 0.977rem + 0.095vw, 1.0625rem);
+  --fs-6: 0.875rem;
+  --lh-head: 1.05;
+  --lh-text: 1.55;
+
+  /* Space (8-pt) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 16px;
+  --s-4: 24px;
+  --s-5: 32px;
+  --s-6: 48px;
+  --s-7: 72px;
+  --s-8: 112px;
+  --section: var(--s-7);
+  --gutter: 16px;
+  --space: 20px;                  /* поле контейнера */
+  --container: 1320px;
+
+  /* Shape and motion */
+  --radius: 2px;
+  --header-h: 64px;
+  --btn-h: 56px;
+  --tap: 44px;
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 700ms;
+  --dur-fast: 180ms;
+}
+
+@media (min-width: 768px) {
+  :root { --space: 40px; --gutter: 24px; --section: var(--s-8); }
+}
+@media (min-width: 1024px) {
+  :root { --header-h: 72px; --btn-h: 52px; }
+}
+@media (min-width: 1280px) {
+  :root { --space: 64px; }
+}

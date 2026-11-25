@@ -1,0 +1,88 @@
+/* Client primitives for «Більярд Центр» (design/concept.md, «Дизайн-система для FULL»). Colours and fonts only via tokens. */
+
+body { font-size: var(--fs-5); line-height: var(--lh-text); }
+html { scrollbar-color: var(--color-cloth) var(--color-chalk); }
+::selection { background: var(--color-accent-light); color: var(--color-accent-ink); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: var(--lh-head); margin: 0; letter-spacing: 0; }
+h2 { font-size: var(--fs-2); }
+h3 { font-size: var(--fs-3); }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.container { width: min(100% - 2 * var(--space), var(--container)); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+.section { padding-block: var(--section); }
+.num { font-family: var(--font-display); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+.muted { color: var(--color-text-2); }
+.small { font-size: var(--fs-6); }
+
+/* Surfaces: the materials of the table */
+.surface-cloth { background: var(--color-cloth); color: var(--color-on-dark); --focus: var(--color-focus-on-dark); --text-2: var(--color-on-cloth-2); --link: var(--color-accent-light); }
+.surface-slate { background: var(--color-slate); color: var(--color-on-dark); --focus: var(--color-focus-on-dark); --text-2: var(--color-on-slate-2); --link: var(--color-accent-light); }
+.surface-wood { background: var(--color-wood); color: var(--color-on-dark); --focus: var(--color-focus-on-dark); --text-2: var(--color-on-dark); --link: var(--color-accent-light); }
+.surface-deep { background: var(--color-cloth-deep); color: var(--color-on-dark); --focus: var(--color-focus-on-dark); --text-2: var(--color-on-cloth-2); --link: var(--color-accent-light); }
+.surface-chalk { background: var(--color-chalk); color: var(--color-text); }
+.surface-paper { background: var(--color-bg); color: var(--color-text); }
+.text-2 { color: var(--text-2, var(--color-text-2)); }
+
+/* Focus: 3 px ring, 2 px offset, ink on light planes, white on dark ones; instant */
+:focus-visible { outline: 3px solid var(--focus, var(--color-focus)); outline-offset: 2px; transition: none; }
+.skip-link { background: var(--color-text); color: var(--color-bg); border-radius: var(--radius); }
+
+/* Text links */
+.link { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: currentColor; transition: color var(--dur-fast) var(--ease-out), text-decoration-color var(--dur-fast) var(--ease-out); }
+.link:hover { text-decoration-thickness: 2px; }
+.link:active { opacity: 0.8; }
+.surface-cloth .link--brass, .surface-slate .link--brass, .surface-deep .link--brass { color: var(--link); }
+
+/* Primary button: brass, graphite text, 2 px radius */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: var(--btn-h); padding: 0 var(--s-4);
+  font: 600 var(--fs-5)/1.2 var(--font-body);
+  text-decoration: none; border-radius: var(--radius); cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.btn svg { flex: none; width: 20px; height: 20px; }
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
+.surface-paper .btn--primary, .surface-chalk .btn--primary { border-color: var(--color-accent-edge); }
+.btn--primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+.surface-paper .btn--primary:hover, .surface-chalk .btn--primary:hover { border-color: var(--color-accent-edge); }
+.btn:active { transform: translateY(1px); }
+.btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+.btn--line { background: transparent; color: inherit; border-color: currentColor; }
+.btn--line:hover { background: var(--color-on-dark); color: var(--color-slate); border-color: var(--color-on-dark); }
+@media (max-width: 767.98px) { .btn--block-m { width: 100%; } }
+
+/* FutureLink: a page that comes with the full site */
+.future-link { gap: var(--s-1); text-decoration: underline dotted 1px; text-underline-offset: 0.25em; color: inherit; outline-offset: 2px; }
+.future-link svg { width: 14px; height: 14px; flex: none; opacity: 0.7; }
+.future-link__note[aria-hidden="true"] { font-family: var(--font-body); font-size: var(--fs-6); font-weight: 400; background: var(--color-text); color: var(--color-on-dark); border-radius: var(--radius); }
+.surface-paper .future-link__note[aria-hidden="true"], .surface-chalk .future-link__note[aria-hidden="true"] { background: var(--color-slate); }
+
+/* Permanent «скоро» mark on touch screens and phones, where the hover note is not seen */
+.future-link__soon { display: none; font-family: var(--font-body); font-size: 0.75em; font-weight: 400; line-height: 1; padding: 2px var(--s-1); border: 1px solid currentColor; border-radius: var(--radius); color: var(--text-2, var(--color-text-2)); text-decoration: none; margin-left: var(--s-1); }
+@media (hover: none), (max-width: 767.98px) { .future-link__soon { display: inline-block; } }
+
+/* Section heads */
+.sec-head { display: grid; gap: var(--s-3); margin-bottom: var(--s-6); max-width: 46rem; }
+.sec-head p { color: var(--text-2, var(--color-text-2)); font-size: var(--fs-4); line-height: 1.45; }
+
+/* Reveal: the base fade-up is not used; every effect is set per block */
+.js [data-reveal]:not(.is-visible) { opacity: 1; transform: none; }
+
+/* Hidden start states of the motion effects: only once scripting runs (.js), never under reduced motion */
+.js .scale:not(.is-visible) .srow__bar { transform: scaleX(0); }
+.js .scale:not(.is-visible) .srow__dot { transform: scale(0); opacity: 0; }
+.js .stratum[data-reveal]:not(.is-visible) > * { clip-path: inset(0 0 100% 0); }
+@media (max-width: 767.98px) {
+  .js .stratum[data-reveal]:not(.is-visible) > * { clip-path: none; }
+  .js .stratum[data-reveal]:not(.is-visible) { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:active { transform: none; }
+  .js .scale:not(.is-visible) .srow__bar, .js .scale:not(.is-visible) .srow__dot { transform: none; opacity: 1; }
+  .js .stratum[data-reveal]:not(.is-visible), .js .stratum[data-reveal]:not(.is-visible) > * { clip-path: none; opacity: 1; }
+}

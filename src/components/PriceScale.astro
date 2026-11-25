@@ -1,0 +1,99 @@
+---
+// Signature: proportional price scale 0–260 000 грн. Each model: name, what is under its cloth, price, segment min–max
+// (a dot for «від» prices). Prices: veon/client.json products_services[1..5], as of 25.11.2026.
+export interface Model {
+  name: string;
+  spec: string;
+  price: string;
+  from: number;
+  to?: number;
+  marks?: number[];
+  note?: string;
+}
+interface Props { models: Model[]; max: number; }
+const { models, max } = Astro.props;
+const pct = (v: number) => Math.round((v / max) * 10000) / 100;
+const ticks = [0, 50000, 100000, 150000, 200000, 250000];
+const tickLabel = (v: number) => (v === 0 ? "0" : `${v / 1000} тис.`);
+---
+<div class="scale" data-reveal>
+  <div class="scale__axis" aria-hidden="true">
+    <span class="scale__axis-name">Модель і що під сукном</span>
+    <span class="scale__axis-track">
+      {ticks.map((t, i) => <span class:list={["scale__tick", { "scale__tick--odd": i % 2 === 1 }]} style={`--at:${pct(t)}`}>{tickLabel(t)}</span>)}
+      <span class="scale__unit">грн</span>
+    </span>
+  </div>
+  <ol class="scale__rows">
+    {models.map((m, i) => (
+      <li class="srow" style={`--from:${pct(m.from)};--to:${pct(m.to ?? m.from)};--i:${i}`}>
+        <div class="srow__head">
+          <h3 class="srow__name">{m.name}</h3>
+          <p class="srow__spec">{m.spec}</p>
+        </div>
+        <div class="srow__scale">
+          <p class="srow__price num">{m.price}{m.note && <span class="srow__note"> {m.note}</span>}</p>
+          <span class="srow__track" aria-hidden="true">
+            {ticks.map((t) => <span class="srow__grid" style={`--at:${pct(t)}`}></span>)}
+            {m.to
+              ? <span class="srow__bar">{(m.marks ?? []).map((v) => <span class="srow__mark" style={`--at:${Math.round(((v - m.from) / (m.to! - m.from)) * 10000) / 100}`}></span>)}</span>
+              : <span class="srow__dot"></span>}
+          </span>
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .scale { --name-col: minmax(0, 1fr); }
+  .scale__axis, .srow { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2) var(--s-5); }
+  .scale__axis { padding-bottom: var(--s-3); border-bottom: 1px solid var(--color-line); font-size: var(--fs-6); color: var(--color-text-2); }
+  .scale__axis-name { display: none; }
+  .scale__axis-track { position: relative; height: 1.5em; margin-right: 3.5rem; }
+  .scale__tick { position: absolute; left: calc(var(--at) * 1%); transform: translateX(-50%); white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; }
+  .scale__tick:first-child { transform: none; }
+  .scale__tick--odd { display: none; }
+  .scale__unit { position: absolute; left: 100%; padding-left: var(--s-3); }
+
+  .scale__rows { margin: 0; padding: 0; list-style: none; }
+  .srow { padding-block: var(--s-4); border-bottom: 1px solid var(--color-line); }
+  .srow__head { display: grid; gap: var(--s-1); }
+  .srow__name { font-size: var(--fs-3); font-weight: 500; }
+  .srow__spec { color: var(--color-text-2); font-size: var(--fs-6); line-height: 1.45; }
+  .srow__scale { display: grid; gap: var(--s-2); align-content: end; }
+  .srow__price { font-size: var(--fs-4); font-weight: 600; white-space: normal; }
+  .srow__note { font-family: var(--font-body); font-size: var(--fs-6); font-weight: 400; color: var(--color-text-2); }
+  .srow__track { position: relative; display: block; height: 16px; margin-right: 3.5rem; }
+  .srow__track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--color-line); }
+  .srow__grid { position: absolute; top: 0; bottom: 0; left: calc(var(--at) * 1%); width: 1px; background: var(--color-line); }
+  .srow__bar {
+    position: absolute; top: 3px; height: 10px;
+    left: calc(var(--from) * 1%); width: calc((var(--to) - var(--from)) * 1%);
+    background: var(--color-cloth); border-radius: var(--radius);
+    transform-origin: left center;
+    transition: transform var(--dur) var(--ease-out);
+    transition-delay: calc(var(--i) * 80ms);
+  }
+  .srow__mark { position: absolute; top: 0; bottom: 0; left: calc(var(--at) * 1%); width: 2px; background: var(--color-chalk); }
+  .srow__dot {
+    position: absolute; top: 2px; width: 12px; height: 12px; border-radius: 50%;
+    left: calc(var(--from) * 1%); translate: -50% 0; background: var(--color-cloth);
+    transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out);
+    transition-delay: calc(var(--i) * 80ms);
+  }
+
+  /* Effect 2 (hidden state lives in site.css under .js): segments are measured from min to max */
+
+  @media (max-width: 767.98px) {
+    .srow__bar, .srow__dot { transition-duration: 400ms; transition-delay: 0ms; }
+  }
+  @media (min-width: 768px) {
+    .scale__axis, .srow { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .scale__axis-name { display: block; }
+    .scale__tick--odd { display: inline; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .srow__bar, .srow__dot { transition: none; }
+  }
+</style>

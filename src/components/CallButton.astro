@@ -1,0 +1,13 @@
+---
+// Primary action: brass button to the main number (tel:). Text always names the number.
+import Icon from "./Icon.astro";
+interface Props { label?: string; tel?: string; display?: string; rec?: string; class?: string; }
+const { label = "Подзвонити", tel = "+380673324028", display = "067-332-40-28", rec, class: cls } = Astro.props;
+---
+<a class:list={["btn btn--primary", cls]} href={`tel:${tel}`} data-rec={rec}>
+  <Icon name="phone" />
+  <span>{label} <span class="num-inline">{display}</span></span>
+</a>
+<style>
+  .num-inline { white-space: nowrap; }
+</style>

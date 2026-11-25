@@ -1,0 +1,61 @@
+---
+// Compact dark-cloth footer: logo, future pages (FutureLink), phones, e-mail, address, language, ©.
+import FutureLink from "./FutureLink.astro";
+const pages = ["Більярдні столи", "Аксесуари", "Комплектуючі", "Сервіс", "Про нас", "Корисне", "Контакти", "Політика конфіденційності"];
+---
+<footer class="ftr surface-deep">
+  <div class="container ftr__in">
+    <div class="ftr__brand">
+      <a class="ftr__logo" href="#holovna" aria-label="Більярд Центр, на початок сторінки">
+        <img src="img/logo.webp" alt="Більярд Центр" width="180" height="120" decoding="async" />
+      </a>
+      <p class="ftr__about text-2">Виробник більярдних столів у Бродах з 1999 року.</p>
+    </div>
+
+    <address class="ftr__contacts">
+      <p class="ftr__phones">
+        <a class="link num" href="tel:+380673324028">067-332-40-28</a>
+        <span class="text-2" aria-hidden="true">/</span>
+        <a class="link num" href="tel:+380661770785">066-177-07-85</a>
+      </p>
+      <p><a class="link" href="mailto:pool@online.ua">pool@online.ua</a></p>
+      <p class="text-2">Броди, вул. Львівська, 28</p>
+    </address>
+
+    <nav class="ftr__nav" aria-label="Розділи повного сайту">
+      <ul>
+        {pages.map((p) => <li><FutureLink>{p}</FutureLink></li>)}
+      </ul>
+    </nav>
+
+    <div class="ftr__base">
+      <p class="ftr__lang" aria-label="Мова сайту">
+        <span aria-current="true">УКР</span>
+        <FutureLink note="Російська версія в розробці">РУС</FutureLink>
+      </p>
+      <p class="text-2">© Більярд Центр</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr { padding-block: var(--s-6) var(--s-5); font-size: var(--fs-6); }
+  .ftr__in { display: grid; gap: var(--s-5); grid-template-columns: minmax(0, 1fr); }
+  .ftr__brand { display: flex; align-items: center; gap: var(--s-3); }
+  .ftr__logo { display: block; flex: none; }
+  .ftr__logo img { height: 48px; width: auto; }
+  .ftr__about { max-width: 22rem; }
+  .ftr__contacts { font-style: normal; display: grid; gap: var(--s-1); font-size: var(--fs-5); }
+  .ftr__contacts .link { display: inline-flex; align-items: center; min-height: var(--tap); }
+  .ftr__phones { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-3); font-size: var(--fs-4); }
+  .ftr__nav ul { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
+  .ftr__nav :global(.future-link) { min-height: var(--tap); color: var(--color-on-cloth-2); }
+  .ftr__base { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); padding-top: var(--s-4); border-top: 1px solid var(--color-cloth); }
+  .ftr__lang { display: flex; align-items: center; gap: var(--s-3); }
+  .ftr__lang :global(.future-link) { min-height: var(--tap); color: var(--color-on-cloth-2); }
+
+  @media (min-width: 1024px) {
+    .ftr__in { grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr); align-items: start; }
+    .ftr__base { grid-column: 1 / -1; }
+  }
+</style>

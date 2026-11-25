@@ -1,0 +1,535 @@
+---
+// Головна «Більярд Центр» за design/concept.md: «Ціна — під сукном».
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import CallButton from "../components/CallButton.astro";
+import FutureLink from "../components/FutureLink.astro";
+import PriceScale from "../components/PriceScale.astro";
+import Footer from "../components/Footer.astro";
+
+const title = "Більярдні столи від виробника з Бродів | Більярд Центр";
+const description = "Столи для піраміди, пулу й снукеру з бука, дуба, ясена на ардезії або ЛДСП. Ціни виробника від 39 500 грн. Виробництво й виставковий зал у Бродах.";
+
+// Каталог: veon/client.json → company.products_services[1..6], B-005, B-006 (ціни станом на 25.11.2026)
+const models = [
+  { name: "Молодіжний", spec: "Основа ЛДСП 18 мм, сукно «Сімонетто», 7 футів", price: "від 39 500 грн", from: 39500 },
+  { name: "Молодіжний плюс", spec: "Основа ардезія, 8 футів", price: "від 56 400 грн", note: "ціна за акцією", from: 56400 },
+  { name: "Хайтек", spec: "Основа ардезія, сукно «Євроспринт» (Чехія), 8–12 футів", price: "108 202 – 228 264 грн", from: 108202, to: 228264 },
+  { name: "Барон", spec: "Основа ардезія, сукно «Хайнсфорт» (Англія), ручне різьблення, 8–12 футів", price: "134 000 – 259 200 грн", from: 134000, to: 259200 },
+  { name: "Снукер", spec: "Снукерне сукно (Великобританія), 10, 11 і 12 футів", price: "183 362 / 220 272 / 251 300 грн", from: 183362, to: 251300, marks: [220272] },
+];
+const used = [
+  ["«Хайтек», пул, 8 футів", "780 $"],
+  ["«Хайтек», піраміда, 10 футів", "1350 $"],
+  ["«Хайтек», піраміда, 12 футів", "68 200 грн"],
+];
+const mailBiz = `mailto:pool@online.ua?subject=${encodeURIComponent("Розрахунок для закладу")}`;
+const route = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Броди, вул. Львівська, 28").replace(/%20/g, "+")}`;
+---
+<Base lang="uk" title={title} description={description}>
+  <Header slot="header" />
+
+  <section id="holovna" class="hero surface-cloth" data-rec="R-003,MA-R002">
+    <div class="container grid hero__grid">
+      <h1 class="hero__title">Більярдні столи від виробника <span class="nw">з Бродів —</span> <span class="nw">з 1999</span> року</h1>
+
+      <div class="hero__offer">
+        <div class="hero__price">
+          <span class="hero__sum num"><span class="hero__from">від</span> 39&nbsp;500&nbsp;грн<span class="hero__rule" aria-hidden="true"></span></span>
+          <span class="hero__note text-2">«Молодіжний», 7&nbsp;футів; ціни станом на&nbsp;25.11.2026</span>
+        </div>
+        <p class="hero__lead">Столи для піраміди, пулу й снукеру з бука, дуба, ясена на ардезії або ЛДСП. Власне виробництво й виставковий зал у&nbsp;Бродах.</p>
+        <div class="hero__actions">
+          <CallButton class="btn--block-m" />
+          <p class="hero__alt">
+            <span class="text-2">або</span> <a class="link link--brass num-text" href="tel:+380661770785">066-177-07-85</a>
+            <span class="hero__alt-sep text-2" aria-hidden="true">/</span>
+            <a class="link link--brass" href="mailto:pool@online.ua" data-rec="R-005">pool@online.ua</a>
+          </p>
+        </div>
+      </div>
+
+      <figure class="hero__photo" data-rec="R-014">
+        <picture>
+          <source media="(max-width: 767.98px)" srcset="img/hero-baron-m-400.webp 400w, img/hero-baron-m-800.webp 800w" sizes="100vw" width="800" height="350" />
+          <img src="img/hero-baron-550.webp" srcset="img/hero-baron-400.webp 400w, img/hero-baron-550.webp 550w" sizes="(min-width: 1280px) 600px, 50vw" width="550" height="355" alt="Стіл «Барон» для піраміди: сукно, латунна луза, різьблений кронштейн" fetchpriority="high" decoding="async" />
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Столи: тип гри -->
+  <section id="stoly" class="section surface-paper stoly">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Оберіть гру: піраміда, пул чи снукер</h2>
+      </div>
+      <div class="grid stoly__grid">
+        <article class="tile tile--big">
+          <div class="tile__media">
+            <img src="img/stoly-piramida-800.webp" srcset="img/stoly-piramida-480.webp 480w, img/stoly-piramida-800.webp 800w" sizes="(min-width: 1024px) 720px, 100vw" width="800" height="325" loading="lazy" decoding="async" alt="Стіл «Барон» для піраміди з різьбленими ніжками в кімнаті замовника" />
+          </div>
+          <div class="tile__body">
+            <h3>Піраміда</h3>
+            <p class="tile__facts">10 моделей, серед них «Молодіжний», «Хайтек» і «Барон»</p>
+            <p class="tile__price num">від 39 500 грн</p>
+            <FutureLink class="tile__more">Столи для піраміди</FutureLink>
+          </div>
+        </article>
+
+        <div class="stoly__side">
+          <article class="tile tile--type surface-chalk">
+            <div class="tile__body">
+              <h3>Пул</h3>
+              <p class="tile__facts">9 моделей</p>
+              <p class="tile__price num">від 39 500 грн</p>
+              <FutureLink class="tile__more">Столи для пулу</FutureLink>
+            </div>
+          </article>
+          <article class="tile tile--snuker">
+            <div class="tile__media">
+              <img src="img/stoly-snuker-840.webp" srcset="img/stoly-snuker-480.webp 480w, img/stoly-snuker-840.webp 840w" sizes="(min-width: 1024px) 520px, 100vw" width="840" height="350" loading="lazy" decoding="async" alt="Стіл для снукеру з кулями на сукні та латунними кутами" />
+            </div>
+            <div class="tile__body">
+              <h3>Снукер</h3>
+              <p class="tile__facts">3 розміри: 10, 11 і 12 футів</p>
+              <p class="tile__price num">від 183 362 грн</p>
+              <FutureLink class="tile__more">Столи для снукеру</FutureLink>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="used surface-slate">
+      <div class="container used__in">
+        <div class="used__head">
+          <h3>Вживані столи</h3>
+          <p class="text-2">Наявність уточнюйте телефоном.</p>
+        </div>
+        <ul class="used__list">
+          {used.map(([n, p]) => <li><span>{n}</span><span class="num used__price">{p}</span></li>)}
+        </ul>
+        <FutureLink class="used__more">Усі вживані столи</FutureLink>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ціни: signature -->
+  <section id="tsiny" class="section surface-chalk tsiny" data-rec="R-002">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Ціни виробника: від 39 500 до 259 200 грн</h2>
+      </div>
+      <div class="grid tsiny__grid">
+        <aside class="tsiny__aside">
+          <p class="tsiny__lead">Ціна залежить від розміру, виконання й матеріалів.</p>
+          <ul class="tsiny__facts">
+            <li>Монтаж (збирання) — 5% від вартості столу.</li>
+            <li>Ціни станом на 25.11.2026.</li>
+          </ul>
+          <CallButton label="Уточнити ціну:" />
+        </aside>
+        <div class="tsiny__scale">
+          <PriceScale models={models} max={260000} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Що під сукном: розріз столу -->
+  <section id="vyrobnytstvo" class="strata" data-rec="R-008">
+    <div class="container strata__intro">
+      <h2>Що під сукном — і чому ціни різні</h2>
+      <p class="muted">Шари столу згори донизу: те, з чого складається ціна. Виробництво в Бродах з 1999 року.</p>
+    </div>
+
+    <div class="stratum stratum--cloth surface-cloth" data-reveal>
+      <div class="container grid stratum__grid">
+        <div class="stratum__text">
+          <h3>Сукно</h3>
+          <ul class="stratum__list">
+            <li><span>«Сімонетто»</span><span class="stratum__model">Молодіжний <span class="num stratum__price">від 39 500 грн</span></span></li>
+            <li><span>«Євроспринт», Чехія</span><span class="stratum__model">Хайтек <span class="num stratum__price">від 108 202 грн</span></span></li>
+            <li><span>«Хайнсфорт», Англія</span><span class="stratum__model">Барон <span class="num stratum__price">від 134 000 грн</span></span></li>
+            <li><span>Снукерне сукно, Велика Британія</span><span class="stratum__model">Снукер <span class="num stratum__price">від 183 362 грн</span></span></li>
+          </ul>
+        </div>
+        <figure class="stratum__photo">
+          <img src="img/sukno-luza-360.webp" width="360" height="240" loading="lazy" decoding="async" alt="Кут столу «Барон»: сукно, луза зі шкіряною сіткою, різьблений борт" />
+        </figure>
+      </div>
+    </div>
+
+    <div class="stratum stratum--brass" data-reveal>
+      <div class="container stratum__line">
+        <h3>Борт і лузи</h3>
+        <p>Латунна або силумінова скоба, шкіра або сітка, гума бортова.</p>
+      </div>
+    </div>
+
+    <div class="stratum stratum--slate surface-slate" data-reveal>
+      <div class="container grid stratum__grid">
+        <h3 class="stratum__label">Ардезія</h3>
+        <div class="stratum__claim">
+          <p class="stratum__big">Основа поля — ардезія (сланець) або ЛДСП 18&nbsp;мм.</p>
+          <div class="stratum__bases">
+            <div class="stratum__base">
+              <p class="stratum__base-name">ЛДСП 18 мм</p>
+              <ul class="stratum__list stratum__list--slate">
+                <li><span>Молодіжний</span><span class="num stratum__price">від 39 500 грн</span></li>
+              </ul>
+            </div>
+            <div class="stratum__base">
+              <p class="stratum__base-name">Ардезія (сланець)</p>
+              <ul class="stratum__list stratum__list--slate">
+                <li><span>Молодіжний плюс</span><span class="num stratum__price">від 56 400 грн</span></li>
+                <li><span>Хайтек</span><span class="num stratum__price">від 108 202 грн</span></li>
+                <li><span>Барон</span><span class="num stratum__price">від 134 000 грн</span></li>
+                <li><span>Снукер</span><span class="num stratum__price">від 183 362 грн</span></li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-2">Виробник заявляє відповідність столів вимогам Федерації більярдного спорту.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stratum stratum--wood surface-wood" data-reveal>
+      <div class="container grid stratum__grid">
+        <h3 class="stratum__label">Дерево</h3>
+        <div class="stratum__claim stratum__claim--wood">
+          <div class="stratum__wood-text">
+            <p class="stratum__big">Бук, дуб, ясен, вільха, граб.</p>
+            <ul class="stratum__list stratum__list--wood">
+              <li><span>Ручне різьблення — Барон</span><span class="num stratum__price">від 134 000 грн</span></li>
+            </ul>
+            <p class="text-2">Столи роблять у Бродах з 1999 року.</p>
+          </div>
+          <figure class="stratum__photo stratum__photo--wood">
+            <img src="img/derevo-kronshtein-270.webp" width="270" height="180" loading="lazy" decoding="async" alt="Різьблений кронштейн і точена ніжка столу «Барон»" />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Як замовити -->
+  <section id="zamovlennia" class="section surface-paper order" data-rec="R-011">
+    <div class="container grid order__grid">
+      <h2 class="order__title">Як замовити стіл</h2>
+      <ol class="order__steps">
+        <li><span class="order__n num" aria-hidden="true">1</span><p>Визначтеся, для якої гри потрібен стіл: піраміда, пул чи снукер.</p></li>
+        <li><span class="order__n num" aria-hidden="true">2</span><p>Оберіть розмір відповідно до приміщення: у каталозі столи від 7 до 12 футів.</p></li>
+        <li><span class="order__n num" aria-hidden="true">3</span><p>Підберіть модель за вартістю на шкалі цін виробника.</p></li>
+        <li><span class="order__n num" aria-hidden="true">4</span><p>Зателефонуйте нам і уточніть ціну, доставку та монтаж.</p></li>
+      </ol>
+      <aside class="order__aside">
+        <h3 class="order__aside-title">Що відомо зараз</h3>
+        <ul class="order__facts">
+          <li>Монтаж (збирання) — 5% від вартості столу.</li>
+          <li>Доставка й гарантія — уточнюйте телефоном.</li>
+          <li>Візит до виставкового залу — узгодьте телефоном.</li>
+        </ul>
+        <CallButton class="btn--block-m" />
+      </aside>
+    </div>
+  </section>
+
+  <!-- Для бізнесу -->
+  <section id="biznes" class="biz surface-slate" data-rec="R-012">
+    <div class="container grid biz__grid">
+      <h2 class="biz__title">Для клубів, ресторанів і готелів</h2>
+      <div class="biz__body">
+        <p>Столи для клубів, ресторанів, готелів і офісів: піраміда й снукер 10–12 футів на ардезії. Виробник заявляє відповідність вимогам Федерації більярдного спорту.</p>
+        <div class="biz__actions">
+          <CallButton label="Обговорити:" />
+          <a class="btn btn--line" href={mailBiz}>Написати листа</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Сервіс і аксесуари -->
+  <section id="servis" class="section surface-paper serv">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Сервіс, комплектуючі й аксесуари</h2>
+      </div>
+      <div class="grid serv__grid">
+        <div class="serv__main">
+          <h3 class="serv__h">Для вашого столу</h3>
+          <ul class="serv__list">
+            <li>Перетягування сукна</li>
+            <li>Ремонт і реставрація столів</li>
+            <li>Професійне складання</li>
+          </ul>
+          <h3 class="serv__h">Комплектуючі</h3>
+          <ul class="serv__chips">
+            <li><FutureLink>Плита ардезія</FutureLink></li>
+            <li><FutureLink>Гума бортова</FutureLink></li>
+            <li><FutureLink>Сукно</FutureLink></li>
+            <li><FutureLink>Лузи</FutureLink></li>
+          </ul>
+          <p class="serv__call">Про сервіс — за телефоном <a class="link num-text" href="tel:+380673324028">067-332-40-28</a></p>
+        </div>
+        <div class="serv__prices">
+          <h3 class="serv__h">Аксесуари</h3>
+          <dl class="serv__dl">
+            <div><dt>Кулі більярдні</dt><dd class="num">1 320 – 18 600 грн</dd></div>
+            <div><dt>Киї</dt><dd class="num">від 1 000 грн за шт.</dd></div>
+            <div><dt>Меблі для більярдної</dt><dd class="num">1 450 – 24 200 грн</dd></div>
+          </dl>
+          <FutureLink class="serv__more">Усі аксесуари</FutureLink>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакти -->
+  <section id="kontakty" class="section surface-cloth cont" data-rec="R-009">
+    <div class="container grid cont__grid">
+      <h2 class="cont__title">Виробництво й виставковий зал у Бродах</h2>
+      <div class="cont__phones" data-rec="R-005">
+        <p class="cont__nums">
+          <a class="cont__num num" href="tel:+380673324028">067-332-40-28</a>
+          <span class="cont__sep text-2">або</span>
+          <a class="cont__num num" href="tel:+380661770785">066-177-07-85</a>
+        </p>
+        <p><a class="link link--brass cont__mail" href="mailto:pool@online.ua">pool@online.ua</a></p>
+        <CallButton class="btn--block-m" />
+      </div>
+      <address class="cont__addr">
+        <p class="cont__street">Броди, вул. Львівська, 28</p>
+        <p class="text-2">Львівська область, приблизно 100 км від Львова, поряд траса Київ – Чоп.</p>
+        <p>Виставковий зал на території виробництва — узгодьте візит телефоном.</p>
+        <p>Продаємо по всій Україні.</p>
+        <p><a class="link link--brass cont__route" href={route} target="_blank" rel="noopener">Прокласти маршрут <span class="visually-hidden">(Google Maps, нова вкладка)</span></a></p>
+      </address>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  /* ---------- Перший екран: площина сукна ---------- */
+  .hero { --overhang: 40px; position: relative; z-index: 2; padding-top: var(--s-6); }
+  .hero__grid { row-gap: var(--s-5); align-items: end; }
+  .hero__title { grid-column: 1 / -1; font-size: var(--fs-1); font-weight: 500; line-height: 1.02; max-width: 15ch; }
+  .hero__offer { grid-column: 1 / -1; display: grid; gap: var(--s-3); }
+  .hero__price { display: grid; gap: var(--s-3); justify-items: start; }
+  .hero__sum { position: relative; font-size: var(--fs-2); font-weight: 600; color: var(--color-accent-light); line-height: 1.1; padding-bottom: var(--s-2); }
+  .hero__from { font-weight: 500; }
+  .hero__rule { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--color-accent); transform-origin: left center; }
+  .hero__note { font-size: var(--fs-6); line-height: 1.4; }
+  .hero__lead { font-size: var(--fs-4); line-height: 1.45; max-width: 34rem; }
+  .hero__actions { display: grid; gap: var(--s-3); margin-top: var(--s-2); justify-items: start; }
+  .hero__alt { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-2); font-size: var(--fs-5); }
+  .hero__alt .link { display: inline-flex; align-items: center; min-height: var(--tap); }
+  .nw { white-space: nowrap; }
+  .num-text { font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+  .hero__photo { grid-column: 1 / -1; margin: 0 calc(-1 * var(--space)) calc(-1 * var(--overhang)); }
+  .hero__photo img { width: 100%; height: auto; border-radius: 0; }
+
+  @media (max-width: 767.98px) {
+    .hero__actions { justify-items: stretch; }
+  }
+  @media (min-width: 768px) {
+    .hero { --overhang: 64px; padding-top: var(--s-7); }
+    .hero__title { max-width: 18ch; }
+    .hero__offer { grid-column: 1 / span 6; padding-bottom: var(--s-7); }
+    .hero__photo { grid-column: 7 / -1; margin: 0 0 calc(-1 * var(--overhang)); }
+    .hero__photo img { border-radius: var(--radius); }
+  }
+  @media (min-width: 1024px) {
+    .hero { --overhang: 72px; padding-top: var(--s-6); }
+    .hero__grid { align-items: start; }
+    .hero__title { grid-column: 1 / span 11; max-width: none; }
+    .hero__offer { grid-column: 1 / span 5; padding-bottom: var(--s-5); }
+    .hero__photo { grid-column: 6 / -1; }
+  }
+  @media (min-width: 1280px) {
+    .hero__title { grid-column: 1 / span 10; }
+    .hero__offer { grid-column: 1 / span 6; }
+    .hero__photo { grid-column: 7 / -1; }
+  }
+  /* ---------- Столи ---------- */
+  .stoly { padding-bottom: 0; }
+  .stoly__grid { row-gap: var(--s-5); }
+  .tile { grid-column: 1 / -1; display: grid; align-content: start; min-width: 0; }
+  .tile__media { overflow: hidden; border-radius: var(--radius); background: var(--color-chalk); }
+  .tile__media img { width: 100%; height: auto; transition: transform 400ms var(--ease-out); }
+  .tile__body { display: grid; gap: var(--s-2); padding-top: var(--s-4); justify-items: start; }
+  .tile__facts { color: var(--color-text-2); }
+  .tile__price { font-size: var(--fs-4); font-weight: 600; }
+  .tile :global(.tile__more) { min-height: var(--tap); margin-top: var(--s-1); }
+  .tile--type { padding: var(--s-4); border-radius: var(--radius); min-height: 120px; }
+  .tile--type .tile__body { padding-top: 0; }
+  .tile--big h3 { font-size: var(--fs-2); }
+  .stoly__side { grid-column: 1 / -1; display: grid; gap: var(--s-5); align-content: start; min-width: 0; }
+  @media (hover: hover) and (min-width: 768px) {
+    .tile:hover .tile__media img { transform: scale(1.03); }
+  }
+  .used { margin-top: var(--section); padding-block: var(--s-6); }
+  .used__in { display: grid; gap: var(--s-4); }
+  .used__head { display: grid; gap: var(--s-1); }
+  .used__list { display: grid; gap: 0; }
+  .used__list li { display: flex; justify-content: space-between; gap: var(--s-3); padding-block: var(--s-2); border-bottom: 1px solid var(--color-text-2); }
+  .used__price { font-size: var(--fs-4); color: var(--color-accent-light); }
+  .used :global(.used__more) { min-height: var(--tap); justify-self: start; color: var(--color-on-slate-2); }
+
+  @media (min-width: 1024px) {
+    .tile--big { grid-column: 1 / span 7; }
+    .stoly__side { grid-column: 8 / -1; }
+    .used__in { grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr); align-items: center; column-gap: var(--gutter); }
+    .used__list { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); }
+    .used__list li { flex-direction: column; border-bottom: 0; border-left: 1px solid var(--color-text-2); padding: 0 0 0 var(--s-3); }
+    .used :global(.used__more) { justify-self: end; }
+  }
+
+  /* ---------- Ціни ---------- */
+  .tsiny__grid { row-gap: var(--s-5); }
+  .tsiny__aside { grid-column: 1 / -1; display: grid; gap: var(--s-4); align-content: start; justify-items: start; }
+  .tsiny__lead { font-family: var(--font-display); font-size: var(--fs-3); line-height: 1.15; }
+  .tsiny__facts { display: grid; gap: var(--s-2); color: var(--color-text-2); }
+  .tsiny__scale { grid-column: 1 / -1; min-width: 0; }
+  @media (max-width: 767.98px) { .tsiny__aside { justify-items: stretch; } }
+  @media (min-width: 1024px) {
+    .tsiny__aside { grid-column: 1 / span 3; position: sticky; top: calc(var(--header-h) + var(--s-5)); }
+    .tsiny__scale { grid-column: 4 / -1; }
+  }
+  @media (min-width: 1280px) {
+    .tsiny__aside { grid-column: 1 / span 4; padding-right: var(--s-5); }
+    .tsiny__scale { grid-column: 5 / -1; }
+  }
+
+  /* ---------- Що під сукном ---------- */
+  .strata__intro { display: grid; gap: var(--s-3); padding-block: var(--section) var(--s-6); max-width: min(100% - 2 * var(--space), var(--container)); }
+  .strata__intro p { font-size: var(--fs-4); max-width: 40rem; }
+  .stratum { padding-block: var(--s-6); }
+  .stratum__grid { row-gap: var(--s-4); align-items: center; }
+  .stratum__text { grid-column: 1 / -1; display: grid; gap: var(--s-3); }
+  .stratum h3 { font-size: var(--fs-2); }
+  .stratum__list { display: grid; font-size: var(--fs-4); }
+  .stratum__list li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 var(--s-3); padding-block: var(--s-2); border-bottom: 1px solid var(--color-cloth-deep); }
+  .stratum__photo { grid-column: 1 / -1; margin: 0; }
+  .stratum__photo img { width: 100%; max-width: 420px; height: auto; border-radius: var(--radius); }
+  .stratum--brass { background: var(--color-accent); color: var(--color-accent-ink); padding-block: var(--s-4); }
+  .stratum__line { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-4); }
+  .stratum--brass h3 { font-size: clamp(1.75rem, 1.48rem + 1.1vw, 2.5rem); }
+  .stratum--brass p { font-size: var(--fs-4); }
+  .stratum__label { grid-column: 1 / -1; }
+  .stratum__claim { grid-column: 1 / -1; display: grid; gap: var(--s-3); }
+  .stratum__big { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.1; max-width: 22ch; }
+  .stratum__model { display: inline-flex; flex-wrap: wrap; gap: 0 var(--s-3); color: var(--text-2); }
+  .stratum__price { font-size: var(--fs-4); font-weight: 600; color: var(--color-accent-light); }
+  .stratum__bases { display: grid; gap: var(--s-4); }
+  .stratum__base { display: grid; gap: var(--s-2); align-content: start; }
+  .stratum__base-name { font-weight: 600; color: var(--text-2); }
+  .stratum__list--slate li { border-bottom-color: var(--color-text-2); }
+  .stratum__list--wood li { border-bottom-color: var(--color-on-dark); }
+  .stratum__claim--wood { display: grid; gap: var(--s-5); }
+  .stratum__wood-text { display: grid; gap: var(--s-3); align-content: start; }
+  .stratum__photo--wood img { max-width: 360px; }
+  .stratum--slate, .stratum--wood { padding-block: var(--s-7); }
+
+  @media (min-width: 768px) {
+    .stratum__text { grid-column: 1 / span 7; }
+    .stratum__photo { grid-column: 9 / -1; justify-self: end; }
+    .stratum__label { grid-column: 1 / span 3; align-self: start; }
+    .stratum__claim { grid-column: 4 / -1; }
+    .stratum__big { max-width: none; }
+    .stratum__bases { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-6); }
+    .stratum__claim--wood { grid-template-columns: minmax(0, 1fr) auto; align-items: start; column-gap: var(--s-6); }
+    .stratum__photo--wood { grid-column: auto; justify-self: end; }
+  }
+
+  /* Effect 3: each layer is laid down top to bottom */
+  :global(.js) .stratum[data-reveal] { transition: opacity var(--dur) var(--ease-out); }
+  :global(.js) .stratum[data-reveal] > * { transition: clip-path var(--dur) var(--ease-out); }
+  @media (max-width: 767.98px) {
+    :global(.js) .stratum[data-reveal] { transition: opacity 300ms var(--ease-out); }
+  }
+
+  /* ---------- Як замовити ---------- */
+  .order__grid { row-gap: var(--s-5); }
+  .order__title { grid-column: 1 / -1; }
+  .order__steps { grid-column: 1 / -1; margin: 0; padding: 0; list-style: none; display: grid; gap: var(--gutter); }
+  .order__steps li { display: grid; grid-template-rows: auto 1fr; gap: var(--s-2); padding: var(--s-4); background: var(--color-chalk); border-radius: var(--radius); }
+  .order__n { font-size: var(--fs-2); font-weight: 500; line-height: 1; color: var(--color-cloth); }
+  .order__steps p { font-family: var(--font-display); font-size: var(--fs-4); line-height: 1.3; }
+  .order__aside { grid-column: 1 / -1; display: flex; flex-direction: column; gap: var(--s-4); align-items: flex-start; padding: var(--s-4); border: 1px solid var(--color-line); border-radius: var(--radius); }
+  .order__aside-title { font-size: var(--fs-4); font-family: var(--font-body); font-weight: 600; }
+  .order__facts { display: grid; gap: var(--s-2); }
+  .order__aside :global(.btn) { margin-top: auto; }
+  @media (max-width: 767.98px) { .order__aside { align-items: stretch; } .order__aside :global(.btn) { width: 100%; } }
+  @media (min-width: 768px) {
+    .order__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; }
+  }
+  @media (min-width: 1024px) {
+    .order__steps { grid-column: 1 / span 8; }
+    .order__aside { grid-column: 9 / -1; }
+  }
+
+  /* ---------- Для бізнесу ---------- */
+  .biz { padding-block: var(--s-7); }
+  .biz__grid { row-gap: var(--s-4); align-items: start; }
+  .biz__title { grid-column: 1 / -1; }
+  .biz__body { grid-column: 1 / -1; display: grid; gap: var(--s-4); }
+  .biz__body > p { font-size: var(--fs-4); line-height: 1.45; color: var(--color-on-slate-2); max-width: 38rem; }
+  .biz__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+  @media (max-width: 767.98px) { .biz__actions > * { width: 100%; } }
+  @media (min-width: 1024px) {
+    .biz__title { grid-column: 1 / span 5; }
+    .biz__body { grid-column: 7 / -1; }
+  }
+
+  /* ---------- Сервіс ---------- */
+  .serv__grid { row-gap: var(--s-6); }
+  .serv__main, .serv__prices { grid-column: 1 / -1; display: grid; gap: var(--s-4); align-content: start; justify-items: start; }
+  .serv__h { font-size: var(--fs-3); }
+  .serv__list { display: grid; gap: var(--s-1); font-size: var(--fs-4); width: 100%; }
+  .serv__list li { padding-block: var(--s-2); border-bottom: 1px solid var(--color-line); }
+  .serv__chips { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); }
+  .serv__chips :global(.future-link) { min-height: var(--tap); }
+  .serv__call .link { display: inline-flex; align-items: center; min-height: var(--tap); }
+  .serv__prices { padding: var(--s-5) var(--s-4); background: var(--color-chalk); border-radius: var(--radius); }
+  .serv__dl { margin: 0; display: grid; width: 100%; }
+  .serv__dl div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 var(--s-3); padding-block: var(--s-3); border-bottom: 1px solid var(--color-line); }
+  .serv__dl dd { margin: 0; font-size: var(--fs-4); font-weight: 600; }
+  .serv__prices :global(.serv__more) { min-height: var(--tap); }
+  @media (min-width: 1024px) {
+    .serv__main { grid-column: 1 / span 6; }
+    .serv__prices { grid-column: 8 / -1; }
+  }
+
+  /* ---------- Контакти ---------- */
+  .cont__grid { row-gap: var(--s-5); }
+  .cont__title { grid-column: 1 / -1; max-width: 18ch; }
+  .cont__phones { grid-column: 1 / -1; display: grid; gap: var(--s-3); justify-items: start; }
+  .cont__nums { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+  .cont__num { font-size: var(--fs-2); font-weight: 500; color: var(--color-on-dark); text-decoration: none; line-height: 1.2; text-decoration: underline 1px transparent; text-underline-offset: 0.15em; transition: text-decoration-color var(--dur-fast) var(--ease-out); }
+  .cont__num:hover { text-decoration-color: var(--color-accent-light); }
+  .cont__num:active { opacity: 0.8; }
+  .cont__sep { font-size: var(--fs-6); }
+  .cont__mail { display: inline-flex; align-items: center; min-height: var(--tap); font-size: var(--fs-4); }
+  .cont__addr { grid-column: 1 / -1; font-style: normal; display: grid; gap: var(--s-2); align-content: start; }
+  .cont__street { font-family: var(--font-display); font-size: var(--fs-3); }
+  .cont__route { display: inline-flex; align-items: center; min-height: var(--tap); font-weight: 600; }
+  @media (max-width: 767.98px) { .cont__phones { justify-items: stretch; } .cont__nums, .cont__mail { justify-self: start; } }
+  @media (min-width: 1024px) {
+    .cont__phones { grid-column: 1 / span 6; }
+    .cont__addr { grid-column: 8 / -1; }
+  }
+
+  /* Effect 1: the brass rule under the price is drawn once */
+  @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  :global(.js) .hero__rule { animation: rule-draw 500ms var(--ease-out) 150ms both; }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .hero__rule { animation: none; }
+    .tile__media img { transition: none; }
+    .tile:hover .tile__media img { transform: none; }
+    :global(.js) .stratum[data-reveal] { transition: none; }
+  }
+</style>
